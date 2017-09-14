@@ -71,37 +71,40 @@ public class PerimeterAssignmentRunner {
     }
 
     public double getLargestPerimeterMultipleFiles() {
-        // Put code here
-        return 0.0;
+        double largestPerimeter = Double.MIN_VALUE;
+        DirectoryResource dr = new DirectoryResource();
+        for (File f : dr.selectedFiles()) {
+            FileResource fr = new FileResource(f);
+            Shape s = new Shape(fr);
+            largestPerimeter = Math.max(largestPerimeter, getPerimeter(s));
+        }
+        return largestPerimeter;
     }
 
     public String getFileWithLargestPerimeter() {
-        // Put code here
-        File temp = null;    // replace this code
-        return temp.getName();
+        String fileName = "";
+        double largestPerimeter = Double.MIN_VALUE;
+        DirectoryResource dr = new DirectoryResource();
+        for (File f : dr.selectedFiles()) {
+            FileResource fr = new FileResource(f);
+            Shape s = new Shape(fr);
+            double thisPerimeter = getPerimeter(s);
+            if(thisPerimeter > largestPerimeter){
+                largestPerimeter = thisPerimeter;
+                fileName = f.getName();
+            }
+        }
+        return fileName;
     }
 
-    public void testPerimeterMultipleFiles() {
-        // Put code here
+    public void testMaximumPerimeterMultipleFiles() {
+        System.out.println(getLargestPerimeterMultipleFiles());
     }
 
     public void testFileWithLargestPerimeter() {
-        // Put code here
+        System.out.println(getFileWithLargestPerimeter());
     }
     
-    // This method creates a triangle that you can use to test your other methods
-    public void triangle(){
-        Shape triangle = new Shape();
-        triangle.addPoint(new Point(0,0));
-        triangle.addPoint(new Point(6,0));
-        triangle.addPoint(new Point(3,6));
-        for (Point p : triangle.getPoints()){
-            System.out.println(p);
-        }
-        double peri = getPerimeter(triangle);
-        System.out.println("perimeter = "+peri);
-    }
-
     // This method prints names of all files in a chosen folder that you can use to test your other methods
     public void printFileNames() {
         DirectoryResource dr = new DirectoryResource();
