@@ -49,6 +49,8 @@ public class GenesFinder {
         String dna = seq.toLowerCase();
         int loc = 0;
         
+        int count = 0;
+        
         // While traversing dna
         while (true) {
             // Find start codon in specified region of dna
@@ -73,11 +75,15 @@ public class GenesFinder {
                 // Update region to dna to look for codon in, setting it to the index
                 // right after the stop codon to avoid next gene overlapping with current gene
                 loc = stop + 3;
+                
+                count++;
             } else {
                 // Update region of dna to look for codon in
                 loc = start + 1;
             }
         }
+        
+        System.out.println(count);
     }
     
     public void testFinder() {
